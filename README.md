@@ -1,2 +1,3 @@
 # ShoppingCart
-Veb orijentisane tehnologije i sistemi
+
+ASP.NET, MVC 5
