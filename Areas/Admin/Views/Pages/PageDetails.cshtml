@@ -1,0 +1,41 @@
+﻿@model CmsShoppingCart.Models.ViewModels.Pages.PageVM
+
+@{
+    ViewBag.Title = "Detalji o stranici";
+}
+
+<h2>Detalji o stranici</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <label>Naslov</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            <label>Oznaka</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Slug)
+        </dd>
+
+        <dt>
+            <label>Sadrzaj</label>
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Body)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Izmeni", "EditPage", new { id = Model.Id }) |
+    @Html.ActionLink("Povratak na stranice", "Index")
+</p>

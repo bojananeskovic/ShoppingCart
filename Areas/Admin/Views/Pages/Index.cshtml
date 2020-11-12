@@ -1,0 +1,95 @@
+﻿@model IEnumerable<CmsShoppingCart.Models.ViewModels.Pages.PageVM>
+
+@{
+    ViewBag.Title = "Stranice";
+}
+
+<h2>Stranice</h2>
+
+<p>
+    @Html.ActionLink("Dodaj stranicu", "AddPage")
+</p>
+
+@if(! Model.Any())
+{
+    <h1 class="text-center">Nema stranica.</h1>
+}
+else
+{
+    <table class="table sorting" id="pages">
+        <tr class="home">
+            <th>
+                Naslov
+            </th>
+            <th>
+                Oznaka
+            </th>
+            <th>
+                Bocna traka
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr id="id_@item.Id" class="@item.Slug">
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Slug)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasSidebar)
+            </td>
+            <td>
+                @Html.ActionLink("Izmeni", "EditPage", new { id=item.Id }) |
+                @Html.ActionLink("Detalji", "PageDetails", new { id=item.Id }) |
+                @if (item.Slug != "home")
+                {
+                    @Html.ActionLink("Obrisi", "DeletePage", new { id = item.Id }, new { @class = "delete" } )
+                }
+            </td>
+        </tr>
+    }
+
+    </table>
+}
+
+@section Scripts {
+<script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<script>
+
+$(function () {
+
+    /*
+    * Confirm page deletion
+    */
+
+    $("a.delete").click(function () {
+        if (!confirm("Potvrdi brisanje!")) return false;
+    });
+
+    //////////////////////////////////////////////////////////////
+
+    /*
+    * Reorder pages
+    */
+
+    $("table#pages tbody").sortable({
+        items: "tr:not(.home)",
+        placeholder: "ui-state-highlight",
+        update: function () {
+            var ids = $("table#pages tbody").sortable("serialize");
+            var url = "/Admin/Pages/ReorderPages";
+
+            $.post(url, ids, function (data) {
+            });
+        }
+    });
+
+    //////////////////////////////////////////////////////////////
+});
+
+</script>    
+    
+}
