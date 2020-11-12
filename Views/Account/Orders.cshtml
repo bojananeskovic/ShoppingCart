@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CmsShoppingCart.Models.ViewModels.Account.OrdersForUserVM>
+
+@{
+    ViewBag.Title = "Porudzbine";
+}
+
+<h2>Porudzbine</h2>
+
+@if (! Model.Any())
+{
+    <h3 class="text-center">Nemate porudzbinu.</h3>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                Broj porudzbine
+            </th>
+            <th>Detalji</th>
+            <th>
+                Kreirana
+            </th>
+            
+            <th>
+                Ukupno
+            </th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @foreach (var item2 in item.ProductsAndQty)
+                {
+                    @item2.Key @:x @item2.Value <br />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Total)
+            </td>
+        </tr>
+    }
+
+    </table>
+}

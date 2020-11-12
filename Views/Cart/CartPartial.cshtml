@@ -1,0 +1,7 @@
+﻿@model CmsShoppingCart.Models.ViewModels.Cart.CartVM
+
+<div class="ajaxcart" style="color:white;">
+   <b> Vasa korpa: @Model.Quantity proizvod(a) - €@Model.Price</b>
+    <br />
+    @Html.ActionLink("Korpa", "Index")
+</div>
